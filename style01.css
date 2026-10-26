@@ -1,0 +1,441 @@
+/* ==========================================
+   ADVANCED CSS ARCHITECTURE & THEME ENGINE
+   ================================          */
+
+:root {
+    --bg-primary: #090d16;
+    --bg-card: rgba(17, 24, 39, 0.7);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --border-glow: rgba(59, 130, 246, 0.4);
+    
+    --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
+    --accent-purple: #8b5cf6;
+    --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+    
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    
+    --font-sans: 'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==========================================
+   IMMERSIVE AMBIENT BACKGROUND GLOWS
+   ========================================== */
+.ambient-glow {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    opacity: 0.15;
+    animation: floatGlow 15s infinite alternate ease-in-out;
+}
+
+.glow-1 {
+    top: -100px;
+    left: -100px;
+    background: var(--accent-blue);
+}
+
+.glow-2 {
+    bottom: -100px;
+    right: -100px;
+    background: var(--accent-purple);
+    animation-delay: -5s;
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.15); }
+}
+
+/* ==========================================
+   LAYOUT STRUCTURE (CSS GRID)
+   ========================================== */
+.portfolio-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+}
+
+@media (max-width: 1024px) {
+    .portfolio-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   LEFT SIDEBAR (STICKY HERO PANEL)
+   ========================================== */
+.hero-sidebar {
+    position: sticky;
+    top: 40px;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 1024px) {
+    .hero-sidebar {
+        position: relative;
+        height: auto;
+        top: 0;
+    }
+}
+
+.badge-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-cyan);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.glitch-name {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-tagline {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+    border-top: 1px solid var(--border-glass);
+    border-bottom: 1px solid var(--border-glass);
+    padding: 20px 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+
+.contact-item:hover {
+    color: var(--accent-cyan);
+    transform: translateX(4px);
+}
+
+.highlight-link {
+    color: var(--accent-blue);
+    font-weight: 600;
+}
+
+.cta-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px 24px;
+    background: var(--accent-gradient);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.5);
+}
+
+/* ==========================================
+   RIGHT CONTENT STREAM (GLASS PANELS)
+   ========================================== */
+.content-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.glass-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-gradient);
+    opacity: 0.3;
+    transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-panel:hover::before {
+    opacity: 1;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-main);
+}
+
+.section-title .number {
+    color: var(--accent-blue);
+    font-size: 0.9rem;
+    font-family: monospace;
+}
+
+.summary-text {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   SKILLS & LANGUAGES GRIDS
+   ========================================== */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    transition: var(--transition-smooth);
+}
+
+.skill-tag:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: var(--accent-blue);
+    color: var(--accent-cyan);
+    transform: translateY(-2px);
+}
+
+.languages-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.lang-pill {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* ==========================================
+   EXPERIENCE TIMELINE
+   ========================================== */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: var(--border-glass);
+}
+
+.timeline-item {
+    position: relative;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    border: 3px solid var(--bg-primary);
+    box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.job-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.company {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.seasonal-tag {
+    background: rgba(234, 179, 8, 0.1);
+    color: #facc15;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+.date-badge {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+    margin-bottom: 15px;
+}
+
+.job-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.job-list li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.job-list li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-blue);
+}
+
+/* ==========================================
+   DUAL GRID (EDUCATION & CERTIFICATIONS)
+   ========================================== */
+.dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .dual-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.edu-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.institution {
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.site-footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-glass);
+}
